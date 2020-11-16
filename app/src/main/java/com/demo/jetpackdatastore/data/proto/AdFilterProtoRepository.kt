@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.DataStore
 import androidx.datastore.createDataStore
 import com.demo.jetpackdatastore.AdFilterPreference
-import com.demo.jetpackdatastore.Filter
 import com.demo.jetpackdatastore.data.proto.model.AdCategory
 import com.demo.jetpackdatastore.data.proto.model.AdFilter
 import com.demo.jetpackdatastore.data.proto.model.AdType

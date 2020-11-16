@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.demo.jetpackdatastore.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
