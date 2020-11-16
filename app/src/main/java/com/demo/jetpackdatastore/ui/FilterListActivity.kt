@@ -27,13 +27,13 @@ import kotlinx.coroutines.launch
 class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var adListRepository: AdListRepository
-    private lateinit var dataStoreUtils: AdFilterProtoRepository
+    private lateinit var adFiltersRepository: AdFilterProtoRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_list)
         adListRepository = AdListRepository()
-        dataStoreUtils = AdFilterProtoRepository(this)
+        adFiltersRepository = AdFilterProtoRepository(this)
         initList()
         initFilters()
         observeFilters()
@@ -60,7 +60,7 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     private fun observeFilters() {
-        dataStoreUtils.getAdFilter().asLiveData().observe(this, Observer {
+        adFiltersRepository.getAdFilter().asLiveData().observe(this, Observer {
             setFilters(it)
             setListDataWithFilters(it)
         })
@@ -131,11 +131,11 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val selectedId = parent!!.id
         if (R.id.sp_category == selectedId) {
             lifecycleScope.launch {
-                dataStoreUtils.updateAdCategory(adListRepository.categories[position])
+                adFiltersRepository.updateAdCategory(adListRepository.categories[position])
             }
         } else if (R.id.sp_type == selectedId) {
             lifecycleScope.launch {
-                dataStoreUtils.updateAdType(adListRepository.types[position])
+                adFiltersRepository.updateAdType(adListRepository.types[position])
             }
         }
     }

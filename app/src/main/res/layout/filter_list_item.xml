@@ -7,7 +7,7 @@
     android:layout_margin="4dp"
     android:padding="10dp"
     android:layout_height="wrap_content"
-    tools:context=".ScreenLaunchCounterActivity">
+    tools:context=".ui.ScreenLaunchCounterActivity">
 
     <TextView
         android:id="@+id/tv_ad_title"
