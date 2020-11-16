@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "com.demo.jetpackdatastore";
+
+message AdFilterPreference {
+  AdType adType = 1;
+  AdCategory adCategory = 2;
+
+  enum AdType {
+    TYPE_ALL = 0;
+    PAID = 1;
+    FREE = 2;
+  }
+
+  enum AdCategory {
+    CATEGORY_ALL = 0;
+    AUTOS = 2;
+    ELECTRONICS = 1;
+  }
+}

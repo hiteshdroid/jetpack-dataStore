@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JetpackDataStore</string>
+    <string name="screen_launch_counter_text">This screen is Launched %s time(s) till now</string>
+</resources>
