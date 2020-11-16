@@ -1,4 +1,4 @@
-package com.demo.jetpackdatastore
+package com.demo.jetpackdatastore.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,26 +12,28 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.demo.jetpackdatastore.data.DataHelper
-import com.demo.jetpackdatastore.proto.AdFilterUtils
-import com.demo.jetpackdatastore.proto.model.Ad
-import com.demo.jetpackdatastore.proto.model.AdCategory
-import com.demo.jetpackdatastore.proto.model.AdFilter
-import com.demo.jetpackdatastore.proto.model.AdType
+import com.demo.jetpackdatastore.R
+import com.demo.jetpackdatastore.data.list.AdListRepository
+import com.demo.jetpackdatastore.data.proto.AdFilterProtoRepository
+import com.demo.jetpackdatastore.data.proto.model.Ad
+import com.demo.jetpackdatastore.data.proto.model.AdCategory
+import com.demo.jetpackdatastore.data.proto.model.AdFilter
+import com.demo.jetpackdatastore.data.proto.model.AdType
 import kotlinx.android.synthetic.main.filter_list.*
 import kotlinx.coroutines.launch
 
 
 class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private lateinit var dataStoreUtils: AdFilterUtils
+    private lateinit var adListRepository: AdListRepository
+    private lateinit var dataStoreUtils: AdFilterProtoRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_list)
-        dataStoreUtils = AdFilterUtils(this)
+        adListRepository = AdListRepository()
+        dataStoreUtils = AdFilterProtoRepository(this)
         initList()
         initFilters()
         observeFilters()
@@ -39,13 +41,13 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun initFilters() {
         val typeAdapter: ArrayAdapter<AdType> =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, DataHelper.types)
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, adListRepository.types)
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sp_type.adapter = typeAdapter
         sp_type.onItemSelectedListener = this
 
         val categoryAdapter: ArrayAdapter<AdCategory> =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, DataHelper.categories)
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, adListRepository.categories)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sp_category.adapter = categoryAdapter
         sp_category.onItemSelectedListener = this
@@ -53,7 +55,8 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun initList() {
         rv_filter_list.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
-        rv_filter_list.adapter = FilterListAdapter()
+        rv_filter_list.adapter =
+            FilterListAdapter()
     }
 
     private fun observeFilters() {
@@ -69,19 +72,19 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     private fun getCategoryPosition(adCategory: AdCategory): Int {
-        return DataHelper.categories.indexOfFirst {
+        return adListRepository.categories.indexOfFirst {
             it.ordinal == adCategory.ordinal
         }
     }
 
     private fun getTypePosition(adType: AdType): Int {
-        return DataHelper.types.indexOfFirst {
+        return adListRepository.types.indexOfFirst {
             it.ordinal == adType.ordinal
         }
     }
 
     private fun setListDataWithFilters(filter: AdFilter) {
-        (rv_filter_list.adapter as FilterListAdapter).setAds(DataHelper.getFilteredList(filter))
+        (rv_filter_list.adapter as FilterListAdapter).setAds(adListRepository.getFilteredList(filter))
     }
 
     class FilterListAdapter : RecyclerView.Adapter<FilterListAdapter.FilterListItemViewHolder>() {
@@ -94,7 +97,9 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterListItemViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.filter_list_item, parent, false)
-            return FilterListItemViewHolder(view)
+            return FilterListItemViewHolder(
+                view
+            )
         }
 
         class FilterListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -126,11 +131,11 @@ class FilterListActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val selectedId = parent!!.id
         if (R.id.sp_category == selectedId) {
             lifecycleScope.launch {
-                dataStoreUtils.updateAdCategory(DataHelper.categories[position])
+                dataStoreUtils.updateAdCategory(adListRepository.categories[position])
             }
         } else if (R.id.sp_type == selectedId) {
             lifecycleScope.launch {
-                dataStoreUtils.updateAdType(DataHelper.types[position])
+                dataStoreUtils.updateAdType(adListRepository.types[position])
             }
         }
     }

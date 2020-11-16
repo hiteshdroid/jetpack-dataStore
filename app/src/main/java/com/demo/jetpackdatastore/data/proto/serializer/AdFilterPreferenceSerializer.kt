@@ -1,4 +1,4 @@
-package com.demo.jetpackdatastore.proto.serializer
+package com.demo.jetpackdatastore.data.proto.serializer
 
 import androidx.datastore.CorruptionException
 import androidx.datastore.Serializer

@@ -1,21 +1,18 @@
-package com.demo.jetpackdatastore.proto
+package com.demo.jetpackdatastore.data.proto
 
 import android.content.Context
 import androidx.datastore.DataStore
 import androidx.datastore.createDataStore
-import androidx.datastore.migrations.SharedPreferencesMigration
-import androidx.datastore.migrations.SharedPreferencesView
 import com.demo.jetpackdatastore.Filter
-import com.demo.jetpackdatastore.proto.model.AdCategory
-import com.demo.jetpackdatastore.proto.model.AdFilter
-import com.demo.jetpackdatastore.proto.model.AdType
-import com.demo.jetpackdatastore.proto.serializer.AdFilterPreferenceSerializer
+import com.demo.jetpackdatastore.data.proto.model.AdCategory
+import com.demo.jetpackdatastore.data.proto.model.AdFilter
+import com.demo.jetpackdatastore.data.proto.model.AdType
+import com.demo.jetpackdatastore.data.proto.serializer.AdFilterPreferenceSerializer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 
-class AdFilterUtils(context: Context) {
+class AdFilterProtoRepository(context: Context) {
 
     // #1 Creating a DataStore instance with filename and serializer
     private val dataStore: DataStore<Filter.AdFilterPreference> =

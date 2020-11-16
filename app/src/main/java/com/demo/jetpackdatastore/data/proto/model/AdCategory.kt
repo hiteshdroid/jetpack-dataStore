@@ -1,4 +1,4 @@
-package com.demo.jetpackdatastore.proto.model
+package com.demo.jetpackdatastore.data.proto.model
 
 enum class AdCategory {
     ALL, AUTOS, ELECTRONICS

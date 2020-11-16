@@ -1,11 +1,11 @@
-package com.demo.jetpackdatastore.data
+package com.demo.jetpackdatastore.data.list
 
-import com.demo.jetpackdatastore.proto.model.Ad
-import com.demo.jetpackdatastore.proto.model.AdCategory
-import com.demo.jetpackdatastore.proto.model.AdFilter
-import com.demo.jetpackdatastore.proto.model.AdType
+import com.demo.jetpackdatastore.data.proto.model.Ad
+import com.demo.jetpackdatastore.data.proto.model.AdCategory
+import com.demo.jetpackdatastore.data.proto.model.AdFilter
+import com.demo.jetpackdatastore.data.proto.model.AdType
 
-object DataHelper {
+class AdListRepository {
     fun getFilteredList(filter: AdFilter): MutableList<Ad> {
         return sampleList.filter {
             if (filter.adCategory == AdCategory.ALL && filter.adType == AdType.ALL) {

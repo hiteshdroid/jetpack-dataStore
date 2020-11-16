@@ -1,8 +1,9 @@
-package com.demo.jetpackdatastore
+package com.demo.jetpackdatastore.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.demo.jetpackdatastore.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

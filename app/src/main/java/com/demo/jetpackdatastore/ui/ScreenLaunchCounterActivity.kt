@@ -1,22 +1,23 @@
-package com.demo.jetpackdatastore
+package com.demo.jetpackdatastore.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import com.demo.jetpackdatastore.preference.PreferenceUtils
+import com.demo.jetpackdatastore.R
+import com.demo.jetpackdatastore.data.preference.PreferenceRepository
 import kotlinx.android.synthetic.main.home_main.*
 import kotlinx.coroutines.launch
 
 class ScreenLaunchCounterActivity : AppCompatActivity() {
-    private lateinit var dataStoreUtils: PreferenceUtils
+    private lateinit var dataStoreUtils: PreferenceRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_main)
         dataStoreUtils =
-            PreferenceUtils(this)
+            PreferenceRepository(this)
         observeAppLaunchCounter()
         setAppLaunched()
 

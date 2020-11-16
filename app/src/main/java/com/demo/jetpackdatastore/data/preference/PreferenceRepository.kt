@@ -1,4 +1,4 @@
-package com.demo.jetpackdatastore.preference
+package com.demo.jetpackdatastore.data.preference
 
 import android.content.Context
 import androidx.datastore.DataStore
@@ -6,7 +6,7 @@ import androidx.datastore.preferences.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class PreferenceUtils(context: Context) {
+class PreferenceRepository(context: Context) {
 
     // #1 Creating a DataStore instance
     private val dataStore: DataStore<Preferences> = context.createDataStore(
